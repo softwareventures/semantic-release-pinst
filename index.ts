@@ -10,7 +10,7 @@ export async function prepare(
 ): Promise<void> {
     return new Promise((resolve, reject) => {
         logger.log("Disabling postinstall script");
-        fork("pinst", ["--disable"], {
+        fork(require.resolve("pinst/bin"), ["--disable"], {
             cwd: pkgRoot == null ? cwd : path.resolve(cwd, String(pkgRoot))
         })
             .once("error", reject)
