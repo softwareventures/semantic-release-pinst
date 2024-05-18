@@ -14,6 +14,14 @@ export async function prepare(
             cwd: pkgRoot == null ? cwd : path.resolve(cwd, String(pkgRoot))
         })
             .once("error", reject)
-            .once("close", () => void resolve());
+            .once("exit", (code, signal) => {
+                if (signal != null) {
+                    throw new Error(`pinst exited due to ${signal}`);
+                } else if (code !== 0) {
+                    throw new Error(`pinst exited with error code ${String(code)}`);
+                } else {
+                    resolve();
+                }
+            });
     });
 }
