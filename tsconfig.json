@@ -1,7 +1,7 @@
 {
   "extends": "@softwareventures/tsconfig",
   "compilerOptions": {
-    "types": ["node", "./types/pinst"]
+    "types": ["node"]
   },
   "exclude": ["**/*.test.ts", "**/test.ts"]
 }

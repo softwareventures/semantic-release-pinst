@@ -1,5 +1,5 @@
-import {resolve} from "node:path";
-import * as pinst from "pinst";
+import * as path from "node:path";
+import {fork} from "node:child_process";
 
 export async function prepare(
     {pkgRoot}: {readonly pkgRoot?: string},
@@ -8,7 +8,12 @@ export async function prepare(
         logger
     }: {readonly cwd: string; readonly logger: {readonly log: (...args: string[]) => void}}
 ): Promise<void> {
-    logger.log("Disabling postinstall script");
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    pinst.disableAndSave(pkgRoot == null ? cwd : resolve(cwd, String(pkgRoot)));
+    return new Promise((resolve, reject) => {
+        logger.log("Disabling postinstall script");
+        fork("pinst", ["--disable"], {
+            cwd: pkgRoot == null ? cwd : path.resolve(cwd, String(pkgRoot))
+        })
+            .once("error", reject)
+            .once("close", () => void resolve());
+    });
 }
