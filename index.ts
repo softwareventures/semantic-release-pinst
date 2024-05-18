@@ -25,14 +25,4 @@ export async function success(
     pinst.enableAndSave(pkgRoot == null ? cwd : resolve(cwd, String(pkgRoot)));
 }
 
-export async function fail(
-    {pkgRoot}: {readonly pkgRoot?: string | undefined | null},
-    {
-        cwd,
-        logger
-    }: {readonly cwd: string; readonly logger: {readonly log: (...args: string[]) => void}}
-): Promise<void> {
-    logger.log("Re-enabling postinstall script");
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    pinst.enableAndSave(pkgRoot == null ? cwd : resolve(cwd, String(pkgRoot)));
-}
+export const fail = success;
