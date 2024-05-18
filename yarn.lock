@@ -6803,6 +6803,7 @@ __metadata:
     typescript: "npm:5.4.5"
   peerDependencies:
     pinst: ">= 2.1.6"
+    semantic-release: ">= 22.0.0"
   languageName: unknown
   linkType: soft
 
