@@ -6757,14 +6757,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release-pinst@npm:1.0.0":
-  version: 1.0.0
-  resolution: "semantic-release-pinst@npm:1.0.0"
+"semantic-release-pinst@npm:1.0.4":
+  version: 1.0.4
+  resolution: "semantic-release-pinst@npm:1.0.4"
   dependencies:
     tslib: "npm:^2.6.2"
   peerDependencies:
     pinst: ">= 2.1.6"
-  checksum: 10c0/82fb26bc9de4f42282a653962fa3c2808c502f05a8eef6b0b8a322c5e47339454890aa89b468a24b46a842b26aba874a9b68146785c23b64dde2310c5b718cb2
+    semantic-release: ">= 22.0.0"
+  checksum: 10c0/42cc215a9957c5866d5f38dab67dc57ea92dccbd26fc967a50b2f41e5401f88a8035db77791bbf75e79e8fb37d721e3a5f6c962d18136c3f3a1208af16318eb4
   languageName: node
   linkType: hard
 
@@ -6797,7 +6798,7 @@ __metadata:
     pinst: "npm:3.0.0"
     prettier: "npm:3.2.5"
     semantic-release: "npm:23.1.1"
-    semantic-release-pinst: "npm:1.0.0"
+    semantic-release-pinst: "npm:1.0.4"
     ts-node: "npm:10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:5.4.5"
