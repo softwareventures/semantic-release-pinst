@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "semantic-release-pinst",
   "version": "0.0.0-development",
   "description": "semantic-release plugin that disables postinstall scripts using pinst",
@@ -80,5 +79,8 @@
   "release": {
     "extends": "@softwareventures/semantic-release-config"
   },
-  "packageManager": "yarn@4.2.2"
+  "packageManager": "yarn@4.2.2",
+  "publishConfig": {
+    "access": "public"
+  }
 }
