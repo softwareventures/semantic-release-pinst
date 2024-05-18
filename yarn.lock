@@ -6794,6 +6794,8 @@ __metadata:
     ts-node: "npm:10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:5.4.5"
+  peerDependencies:
+    pinst: ">= 2.1.6"
   languageName: unknown
   linkType: soft
 
