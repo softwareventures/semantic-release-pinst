@@ -6,5 +6,5 @@ export async function prepare(
     {cwd}: {readonly cwd: string}
 ): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    pinst.disableAndSave(pkgRoot == null ? cwd : resolve(cwd, pkgRoot));
+    pinst.disableAndSave(pkgRoot == null ? cwd : resolve(cwd, String(pkgRoot)));
 }
