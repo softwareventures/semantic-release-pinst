@@ -10,7 +10,7 @@ export async function prepare(
 ): Promise<void> {
     logger.log("Disabling postinstall script");
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    pinst.disableAndSave(pkgRoot == null ? cwd : resolve(cwd, String(pkgRoot)));
+    pinst.disableAndSave(resolvePackageDir(pkgRoot, cwd));
 }
 
 export async function success(
@@ -22,7 +22,11 @@ export async function success(
 ): Promise<void> {
     logger.log("Re-enabling postinstall script");
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    pinst.enableAndSave(pkgRoot == null ? cwd : resolve(cwd, String(pkgRoot)));
+    pinst.enableAndSave(resolvePackageDir(pkgRoot, cwd));
+}
+
+function resolvePackageDir(pkgRoot: string | undefined | null, cwd: string): string {
+    return pkgRoot == null ? cwd : resolve(cwd, String(pkgRoot));
 }
 
 export const fail = success;
