@@ -1173,12 +1173,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.17.29":
-  version: 20.17.29
-  resolution: "@types/node@npm:20.17.29"
+"@types/node@npm:20.17.30":
+  version: 20.17.30
+  resolution: "@types/node@npm:20.17.30"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/0e366968c14e6518253159fd1400e557e190dded27f95ee486a0ff419926a309c2bc5ebd2866bff32fc79557964055bc3cc52317ee4672cafb8ff72bc39643b8
+  checksum: 10c0/649782c7822367d751472d70c948bcc50cded1a4744610f706f81cd54e1fc015523567d7e3e17f6b19e3e2797f6f23b653e898bdb4a2f21f8759ceba49976310
   languageName: node
   linkType: hard
 
@@ -6959,7 +6959,7 @@ __metadata:
     "@softwareventures/prettier-config": "npm:4.0.0"
     "@softwareventures/semantic-release-config": "npm:5.1.0"
     "@softwareventures/tsconfig": "npm:8.1.0"
-    "@types/node": "npm:20.17.29"
+    "@types/node": "npm:20.17.30"
     "@typescript-eslint/eslint-plugin": "npm:7.18.0"
     "@typescript-eslint/parser": "npm:7.18.0"
     ava: "npm:6.2.0"
