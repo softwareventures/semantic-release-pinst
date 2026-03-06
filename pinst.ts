@@ -16,7 +16,7 @@ function updatePkg(dir: string, fn: (packageJson: unknown) => void): void {
     // Stringify pkg
     const regex = /^[ ]+|\t+/mu;
     const res = regex.exec(data);
-    const indent = res == null ? null : res[0];
+    const indent = res == null ? undefined : res[0];
     data = JSON.stringify(pkg, null, indent);
 
     // Write pkg
