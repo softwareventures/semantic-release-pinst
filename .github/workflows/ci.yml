@@ -17,7 +17,7 @@ jobs:
       - name: git checkout
         uses: actions/checkout@v5
       - name: yarn cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.yarn/berry/cache
           key: ${{runner.os}}-node${{matrix.node-version}}-yarn-${{hashFiles('**/yarn.lock')}}
@@ -44,7 +44,7 @@ jobs:
       - name: git checkout
         uses: actions/checkout@v5
       - name: yarn cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.yarn/berry/cache
           key: ${{runner.os}}-node${{env.DEPLOY_NODE_VERSION}}-yarn-${{hashFiles('**/yarn.lock')}}
