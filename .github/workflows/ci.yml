@@ -3,7 +3,7 @@ on: [push, pull_request]
 env:
   CI: true
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  DEPLOY_NODE_VERSION: 22.x
+  DEPLOY_NODE_VERSION: 25.x
 permissions:
   contents: read
 jobs:
