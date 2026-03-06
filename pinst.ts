@@ -1,14 +1,14 @@
-const fs = require("fs");
-const path = require("path");
+import {readFileSync, writeFileSync} from "node:fs";
+import * as path from "node:path";
 
 // Update package.json
-function updatePkg(dir, fn) {
+function updatePkg(dir: string, fn: (packageJson: unknown) => void): void {
     // Pkg path
     const file = path.join(dir, "package.json");
 
     // Read pkg
-    let data = fs.readFileSync(file, "utf-8");
-    const pkg = JSON.parse(data);
+    let data = readFileSync(file, "utf-8");
+    const pkg = JSON.parse(data) as unknown;
 
     // Update pkg object
     fn(pkg);
@@ -20,17 +20,17 @@ function updatePkg(dir, fn) {
     data = JSON.stringify(pkg, null, indent);
 
     // Write pkg
-    fs.writeFileSync(file, `${data}\n`);
+    writeFileSync(file, `${data}\n`);
 }
 
 // Update pkg.scripts names
-function updateScripts(pkg, fn) {
+function updateScripts(pkg: unknown, fn: (name: string) => string): void {
     pkg.scripts = Object.fromEntries(
-        Object.entries(pkg.scripts).map(([key, value]) => [fn(key), value])
+        Object.entries(pkg.scripts).map(([key, value]) => [fn(key), value] as const)
     );
 }
 
-function enable(name) {
+function enable(name: string): string {
     if (["_install", "_postinstall"].includes(name)) {
         return name.substring(1);
     }
@@ -38,7 +38,7 @@ function enable(name) {
     return name;
 }
 
-function disable(name) {
+function disable(name: string): string {
     if (["install", "postinstall"].includes(name)) {
         return `_${name}`;
     }
@@ -46,11 +46,11 @@ function disable(name) {
     return name;
 }
 
-function enableAndSave(dir = process.cwd()) {
+function enableAndSave(dir = process.cwd()): void {
     updatePkg(dir, pkg => updateScripts(pkg, enable));
 }
 
-function disableAndSave(dir = process.cwd()) {
+function disableAndSave(dir = process.cwd()): void {
     updatePkg(dir, pkg => updateScripts(pkg, disable));
 }
 
