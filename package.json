@@ -1,7 +1,7 @@
 {
   "name": "semantic-release-pinst",
   "version": "0.0.0-development",
-  "description": "semantic-release plugin that disables postinstall scripts using pinst",
+  "description": "semantic-release plugin that disables postinstall scripts",
   "keywords": [
     "semantic-release",
     "pinst"
@@ -26,7 +26,6 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "pinst": ">= 2.1.6",
     "semantic-release": ">= 22.0.0"
   },
   "devDependencies": {

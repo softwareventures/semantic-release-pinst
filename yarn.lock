@@ -6988,7 +6988,6 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:5.9.3"
   peerDependencies:
-    pinst: ">= 2.1.6"
     semantic-release: ">= 22.0.0"
   languageName: unknown
   linkType: soft
