@@ -35,26 +35,16 @@ function renameScripts(packageJson: unknown, rename: (name: string) => string): 
     }
 }
 
-function enable(name: string): string {
-    if (["_install", "_postinstall"].includes(name)) {
-        return name.substring(1);
-    }
-
-    return name;
-}
-
-function disable(name: string): string {
-    if (["install", "postinstall"].includes(name)) {
-        return `_${name}`;
-    }
-
-    return name;
-}
-
 export async function enableAndSave(dir = process.cwd()): Promise<void> {
-    return rewritePackageJson(dir, pkg => renameScripts(pkg, enable));
+    return rewritePackageJson(dir, pkg =>
+        renameScripts(pkg, name =>
+            ["_install", "_postinstall"].includes(name) ? name.substring(1) : name
+        )
+    );
 }
 
 export async function disableAndSave(dir = process.cwd()): Promise<void> {
-    return rewritePackageJson(dir, pkg => renameScripts(pkg, disable));
+    return rewritePackageJson(dir, pkg =>
+        renameScripts(pkg, name => (["install", "postinstall"].includes(name) ? `_${name}` : name))
+    );
 }
