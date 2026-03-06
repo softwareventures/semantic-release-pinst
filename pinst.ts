@@ -15,22 +15,23 @@ async function rewritePackageJson(
     return writeFile(file, `${updatedText}\n`);
 }
 
-// Update pkg.scripts names
-function updateScripts(pkg: unknown, fn: (name: string) => string): unknown {
+function renameScripts(packageJson: unknown, rename: (name: string) => string): unknown {
     if (
-        typeof pkg === "object" &&
-        hasProperty(pkg, "scripts") &&
-        typeof pkg.scripts === "object" &&
-        pkg.scripts != null
+        typeof packageJson === "object" &&
+        hasProperty(packageJson, "scripts") &&
+        typeof packageJson.scripts === "object" &&
+        packageJson.scripts != null
     ) {
         return {
-            ...pkg,
+            ...packageJson,
             scripts: Object.fromEntries(
-                Object.entries(pkg.scripts).map(([key, value]) => [fn(key), value] as const)
+                Object.entries(packageJson.scripts).map(
+                    ([key, value]) => [rename(key), value] as const
+                )
             )
         };
     } else {
-        return pkg;
+        return packageJson;
     }
 }
 
@@ -51,9 +52,9 @@ function disable(name: string): string {
 }
 
 export async function enableAndSave(dir = process.cwd()): Promise<void> {
-    return rewritePackageJson(dir, pkg => updateScripts(pkg, enable));
+    return rewritePackageJson(dir, pkg => renameScripts(pkg, enable));
 }
 
 export async function disableAndSave(dir = process.cwd()): Promise<void> {
-    return rewritePackageJson(dir, pkg => updateScripts(pkg, disable));
+    return rewritePackageJson(dir, pkg => renameScripts(pkg, disable));
 }
