@@ -46,15 +46,10 @@ function disable(name: string): string {
     return name;
 }
 
-function enableAndSave(dir = process.cwd()): void {
+export function enableAndSave(dir = process.cwd()): void {
     updatePkg(dir, pkg => updateScripts(pkg, enable));
 }
 
-function disableAndSave(dir = process.cwd()): void {
+export function disableAndSave(dir = process.cwd()): void {
     updatePkg(dir, pkg => updateScripts(pkg, disable));
 }
-
-module.exports = {
-    enableAndSave,
-    disableAndSave
-};
