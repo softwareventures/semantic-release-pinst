@@ -2,8 +2,10 @@ import {readFile, writeFile} from "node:fs/promises";
 import * as path from "node:path";
 import {hasProperty} from "unknown";
 
-// Update package.json
-async function updatePkg(dir: string, fn: (packageJson: unknown) => unknown): Promise<void> {
+async function rewritePackageJson(
+    dir: string,
+    fn: (packageJson: unknown) => unknown
+): Promise<void> {
     const file = path.join(dir, "package.json");
     const text = await readFile(file, "utf-8");
     const indent = /^ +|\t+/mu.exec(text)?.[0];
@@ -49,9 +51,9 @@ function disable(name: string): string {
 }
 
 export async function enableAndSave(dir = process.cwd()): Promise<void> {
-    return updatePkg(dir, pkg => updateScripts(pkg, enable));
+    return rewritePackageJson(dir, pkg => updateScripts(pkg, enable));
 }
 
 export async function disableAndSave(dir = process.cwd()): Promise<void> {
-    return updatePkg(dir, pkg => updateScripts(pkg, disable));
+    return rewritePackageJson(dir, pkg => updateScripts(pkg, disable));
 }
