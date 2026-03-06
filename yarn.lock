@@ -6987,6 +6987,7 @@ __metadata:
     ts-node: "npm:10.9.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:5.9.3"
+    unknown: "npm:^0.2.6"
   peerDependencies:
     semantic-release: ">= 22.0.0"
   languageName: unknown
@@ -8119,6 +8120,13 @@ __metadata:
   linkType: hard
 
 "unknown@npm:0.2.6":
+  version: 0.2.6
+  resolution: "unknown@npm:0.2.6"
+  checksum: 10c0/cc516e61cc3023d013390fb4603d2c285a1778095d0b86af369086be5ccfcada0a2900d6b23b38ff30b408091d2f169b095b68ed024508ad4b2e30993c2a7a24
+  languageName: node
+  linkType: hard
+
+"unknown@npm:^0.2.6":
   version: 0.2.6
   resolution: "unknown@npm:0.2.6"
   checksum: 10c0/cc516e61cc3023d013390fb4603d2c285a1778095d0b86af369086be5ccfcada0a2900d6b23b38ff30b408091d2f169b095b68ed024508ad4b2e30993c2a7a24

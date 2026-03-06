@@ -1,17 +1,17 @@
 import {readFileSync, writeFileSync} from "node:fs";
 import * as path from "node:path";
+import {hasProperty} from "unknown";
 
 // Update package.json
-function updatePkg(dir: string, fn: (packageJson: unknown) => void): void {
+function updatePkg(dir: string, fn: (packageJson: unknown) => unknown): void {
     // Pkg path
     const file = path.join(dir, "package.json");
 
     // Read pkg
     let data = readFileSync(file, "utf-8");
-    const pkg = JSON.parse(data) as unknown;
 
     // Update pkg object
-    fn(pkg);
+    const pkg = fn(JSON.parse(data) as unknown);
 
     // Stringify pkg
     const regex = /^ +|\t+/mu;
@@ -24,10 +24,22 @@ function updatePkg(dir: string, fn: (packageJson: unknown) => void): void {
 }
 
 // Update pkg.scripts names
-function updateScripts(pkg: unknown, fn: (name: string) => string): void {
-    pkg.scripts = Object.fromEntries(
-        Object.entries(pkg.scripts).map(([key, value]) => [fn(key), value] as const)
-    );
+function updateScripts(pkg: unknown, fn: (name: string) => string): unknown {
+    if (
+        typeof pkg === "object" &&
+        hasProperty(pkg, "scripts") &&
+        typeof pkg.scripts === "object" &&
+        pkg.scripts != null
+    ) {
+        return {
+            ...pkg,
+            scripts: Object.fromEntries(
+                Object.entries(pkg.scripts).map(([key, value]) => [fn(key), value] as const)
+            )
+        };
+    } else {
+        return pkg;
+    }
 }
 
 function enable(name: string): string {
@@ -47,9 +59,9 @@ function disable(name: string): string {
 }
 
 export function enableAndSave(dir = process.cwd()): void {
-    updatePkg(dir, pkg => void updateScripts(pkg, enable));
+    updatePkg(dir, pkg => updateScripts(pkg, enable));
 }
 
 export function disableAndSave(dir = process.cwd()): void {
-    updatePkg(dir, pkg => void updateScripts(pkg, disable));
+    updatePkg(dir, pkg => updateScripts(pkg, disable));
 }

@@ -23,7 +23,8 @@
     "node": "^18 || ^20 || ^21 || >=22"
   },
   "dependencies": {
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "unknown": "^0.2.6"
   },
   "peerDependencies": {
     "semantic-release": ">= 22.0.0"
