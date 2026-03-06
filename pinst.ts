@@ -1,26 +1,16 @@
-import {readFileSync, writeFileSync} from "node:fs";
+import {readFile, writeFile} from "node:fs/promises";
 import * as path from "node:path";
 import {hasProperty} from "unknown";
 
 // Update package.json
-function updatePkg(dir: string, fn: (packageJson: unknown) => unknown): void {
-    // Pkg path
+async function updatePkg(dir: string, fn: (packageJson: unknown) => unknown): Promise<void> {
     const file = path.join(dir, "package.json");
+    const text = await readFile(file, "utf-8");
+    const indent = /^ +|\t+/mu.exec(text)?.[0];
 
-    // Read pkg
-    let data = readFileSync(file, "utf-8");
-
-    // Update pkg object
-    const pkg = fn(JSON.parse(data) as unknown);
-
-    // Stringify pkg
-    const regex = /^ +|\t+/mu;
-    const res = regex.exec(data);
-    const indent = res == null ? undefined : res[0];
-    data = JSON.stringify(pkg, null, indent);
-
-    // Write pkg
-    writeFileSync(file, `${data}\n`);
+    const updated = fn(JSON.parse(text) as unknown);
+    const updatedText = JSON.stringify(updated, null, indent);
+    return writeFile(file, `${updatedText}\n`);
 }
 
 // Update pkg.scripts names
@@ -58,10 +48,10 @@ function disable(name: string): string {
     return name;
 }
 
-export function enableAndSave(dir = process.cwd()): void {
-    updatePkg(dir, pkg => updateScripts(pkg, enable));
+export async function enableAndSave(dir = process.cwd()): Promise<void> {
+    return updatePkg(dir, pkg => updateScripts(pkg, enable));
 }
 
-export function disableAndSave(dir = process.cwd()): void {
-    updatePkg(dir, pkg => updateScripts(pkg, disable));
+export async function disableAndSave(dir = process.cwd()): Promise<void> {
+    return updatePkg(dir, pkg => updateScripts(pkg, disable));
 }
