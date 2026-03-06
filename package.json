@@ -3,8 +3,8 @@
   "version": "0.0.0-development",
   "description": "semantic-release plugin that disables postinstall scripts",
   "keywords": [
-    "semantic-release",
-    "pinst"
+    "pinst",
+    "semantic-release"
   ],
   "author": "Daniel Cassidy <mail@danielcassidy.me.uk>",
   "homepage": "https://github.com/softwareventures/semantic-release-pinst",
