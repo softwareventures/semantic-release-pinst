@@ -14,9 +14,9 @@ function updatePkg(dir: string, fn: (packageJson: unknown) => void): void {
     fn(pkg);
 
     // Stringify pkg
-    const regex = /^[ ]+|\t+/m;
+    const regex = /^[ ]+|\t+/mu;
     const res = regex.exec(data);
-    const indent = res ? res[0] : null;
+    const indent = res == null ? null : res[0];
     data = JSON.stringify(pkg, null, indent);
 
     // Write pkg
@@ -47,9 +47,9 @@ function disable(name: string): string {
 }
 
 export function enableAndSave(dir = process.cwd()): void {
-    updatePkg(dir, pkg => updateScripts(pkg, enable));
+    updatePkg(dir, pkg => void updateScripts(pkg, enable));
 }
 
 export function disableAndSave(dir = process.cwd()): void {
-    updatePkg(dir, pkg => updateScripts(pkg, disable));
+    updatePkg(dir, pkg => void updateScripts(pkg, disable));
 }
